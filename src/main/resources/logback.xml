@@ -6,7 +6,7 @@
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <property name="LOG_HOME" value="${user.dir}/logs/"/>
-    <property name="APP_NAME" value="m2m-server"/>
+    <property name="APP_NAME" value="m2m-analyze"/>
 
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
