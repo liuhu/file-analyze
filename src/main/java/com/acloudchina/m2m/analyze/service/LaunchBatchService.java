@@ -28,7 +28,6 @@ public class LaunchBatchService {
     @Qualifier("fileAnalyzeJob")
     private Job fileAnalyzeJob;
 
-
     public void launchJob() {
         try {
             List<String> filePatchList = new ArrayList<>();

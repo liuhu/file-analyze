@@ -1,6 +1,6 @@
 package com.acloudchina.m2m.analyze.flow;
 
-import com.acloudchina.m2m.analyze.constant.BatchConstants;
+import com.acloudchina.m2m.analyze.domain.SimInfoDomain;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.Map;
 
 /**
  * Created by liuhu on 24/05/2017.
@@ -52,13 +52,14 @@ public class FileAnalyzeConfig {
 
     @Bean
     public Step fileAnalyzeStep(@Qualifier("itemReader")ItemReader<String> reader,
-                                @Qualifier("fileAnalyzeProcessor") ItemProcessor<String, String> processor
-                                /*@Qualifier("simExportWriter")ItemWriter<ExportSimPageDto> writer*/) {
+                                @Qualifier("fileAnalyzeProcessor") ItemProcessor<String, SimInfoDomain> processor,
+                                @Qualifier("fileAnalyzeWriter")ItemWriter<SimInfoDomain> writer) {
         return stepBuilderFactory.get("fileAnalyzeStep")
-                .<String, String> chunk(20)
+                .<String, SimInfoDomain> chunk(1)
                 .reader(reader)
                 .processor(processor)
-                //.writer(writer)
+                .writer(writer)
+               // .transactionManager(platformTransactionManager)
                 .build();
     }
 }
