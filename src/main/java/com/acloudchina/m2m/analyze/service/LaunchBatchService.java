@@ -7,6 +7,7 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -28,10 +29,13 @@ public class LaunchBatchService {
     @Qualifier("fileAnalyzeJob")
     private Job fileAnalyzeJob;
 
+    @Value("${baseFilePath}")
+    private String filePath;
+
     public void launchJob() {
         try {
             List<String> filePatchList = new ArrayList<>();
-            readAllFilePath("/Users/liuhu/Downloads/Doc/A01", filePatchList);
+            readAllFilePath(filePath, filePatchList);
             if (null != filePatchList && !filePatchList.isEmpty()) {
                 for (String filePath : filePatchList) {
                     JobParametersBuilder parametersBuilder = new JobParametersBuilder();

@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 
 /**
@@ -55,11 +54,10 @@ public class FileAnalyzeConfig {
                                 @Qualifier("fileAnalyzeProcessor") ItemProcessor<String, SimInfoDomain> processor,
                                 @Qualifier("fileAnalyzeWriter")ItemWriter<SimInfoDomain> writer) {
         return stepBuilderFactory.get("fileAnalyzeStep")
-                .<String, SimInfoDomain> chunk(1)
+                .<String, SimInfoDomain> chunk(20)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
-               // .transactionManager(platformTransactionManager)
                 .build();
     }
 }
