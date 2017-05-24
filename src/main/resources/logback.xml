@@ -38,10 +38,10 @@
     <logger name="org.springframework.data.repository.config" level="WARN"/>
 
     <root level="INFO">
-<!--
         <appender-ref ref="WriteLog" />
--->
+<!--
         <appender-ref ref="CONSOLE" />
+-->
     </root>
 
 </configuration>
